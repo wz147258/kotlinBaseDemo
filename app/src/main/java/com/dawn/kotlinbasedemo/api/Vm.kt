@@ -13,7 +13,7 @@ import java.util.concurrent.CancellationException
  * @param request [@kotlin.ExtensionFunctionType] SuspendFunction1<ApiInterface, BaseResponse<T>?>
  * @return Flow<BaseResponse<T>>
  */
-suspend fun <T> BaseViewModel.flowRequest(
+fun <T> BaseViewModel.flowRequest(
     showLoading: Boolean = true,
     request: suspend ApiInterface.() -> BaseResponse<T>?
 ): Flow<BaseResponse<T>> {
@@ -66,6 +66,7 @@ fun catchException(
     }
     return exception;
 }
+
 fun <T> Flow<T>.catchError(bloc: Throwable.() -> Unit) = catch { cause -> bloc(cause) }
 
 suspend fun <T> Flow<T>.next(bloc: suspend T.() -> Unit): Unit = catch { }.collect { bloc(it) }
